@@ -3,29 +3,30 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include <set>
 #define MAX 20 + 5
 using namespace std;
 int dx[4] = {-1, 0, 1, 0};
 int dy[4] = {0, 1, 0, -1};
-bool visited[MAX][MAX];
 int ans, n;
-void trymap(int a[MAX][MAX], int index, int i, int j)
+set<long long > s;
+void trymap(int a[MAX][MAX], int x, int y, long long mask, int cnt)
 {
-    if (index == 8)0
+    if (cnt == 8)
     {
-        ans=ans+1;
+        s.insert(mask);
         return;
     }
     for (int k = 0; k < 4; k++)
     {
-        if ((i + dx[k] >= 0) && (i + dx[k] <= n - 1) && (j + dy[k] >= 0) && (j + dy[k] <= n - 1))
-            if ((visited[i + dx[k]][j + dy[k]] == false) && (a[i + dx[k]][j + dy[k]] == 1))
-            {
-                visited[i + .dx[k]][j + dy[k]] = true;
-                trymap(a, index+1, i + dx[k], j + dy[k]);
-                //index--;
-                p.push_back()
-            }
+        int u = x + dx[k];
+        int v = y + dy[k];
+        if (a[u][v] == 1 && (((1 << (u * n + v)) & mask) == 0) && u >= 0 && u <= n - 1 && v >= 0 && v <= n - 1)
+        {
+            mask |= 1 << (u * n + v);
+            trymap(a, u, v, mask, cnt + 1);
+            mask &= ~(1 << (u * n + v));
+        }
     }
 }
 int main()
@@ -38,9 +39,6 @@ int main()
     {
         int a[MAX][MAX];
         cin >> n;
-        for (int j = 0; j < n; j++)
-            for (int k = 0; k < n; k++)
-                visited[j][j] = false;
         ans = 0;
         char x;
         for (int j = 0; j < n; j++)
@@ -54,13 +52,10 @@ int main()
             }
         for (int j = 0; j < n; j++)
             for (int k = 0; k < n; k++)
-            {
-                if ((visited[j][k] == false) && (a[j][k] == 1))
-                {
-                    visited[j][k] = true;
-                    trymap(a, 1, j, k);
-                }
-            }
+                trymap(a, j, k, 0, 0);
+        ans = s.size();
+        s.clear();
         cout << ans << endl;
     }
+    return 0;
 }
