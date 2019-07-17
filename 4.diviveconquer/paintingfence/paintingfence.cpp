@@ -2,38 +2,32 @@
 #include <algorithm>
 #include <vector>
 #include <string>
-
+#include <cmath>
 using namespace std;
-int minimalpainting(vector<int> a, int left, int right)
+vector<int>a(5005);
+int minoperation(int l,int r,int h)
 {
-    if (right - left <= 1)
+    if(l>=r)
+        return 0;
+    int min_h=l;
+    for(int i=l;i<r;i++)
     {
-        int ans=1;
-        for (int i = left; i <= right; i++)
+        if(a[min_h]>a[i])
         {
-            if (a[i] > 1)
-                ans = 2;
-            break;
+            min_h=i;
         }
-        return ans;
     }
-    int mid = (right + left) / 2;
-    int minleft=minimalpainting(a,left,mid);    
-    int minright=minimalpainting(a,mid+1,right);
-
-
+    return min(r-l,a[min_h]-h+minoperation(l,min_h,a[min_h])+minoperation(min_h+1,r,a[min_h]));
 }
 int main()
 {
-    freopen("input.inp", "r", stdin);
-    freopen("output.out", "w", stdout);
+    freopen("input.inp","r",stdin);
+    freopen("output.out","w",stdout);
     int n;
-    long long x;
-    vector<long long> a;
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    cin>>n;
+    for(int i=0;i<n;i++)
     {
-        cin >> x;
-        a.push_back(x);
+        cin>>a[i];
     }
+    cout<<minoperation(0,n,0);
 }

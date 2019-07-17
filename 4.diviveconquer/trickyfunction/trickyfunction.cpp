@@ -6,6 +6,7 @@
 #include <cmath>
 #define INF 1e9
 using namespace std;
+vector<double> d(100005, 0);
 struct point
 {
     double x, y;
@@ -59,30 +60,29 @@ double minimalDistance(vector<point> &xPoints, int left, int right)
 }
 int main()
 {
+    freopen("input.inp", "r", stdin);
+    freopen("output.out", "w", stdout);
     int n;
-    while (cin >> n)
+    cin >> n;
+    vector<int> a(100005, 0);
+    for (int i = 1; i <= n; i++)
     {
-        if (n == 0)
-            break;
-        else
-        {
-            point p;
-            vector<point> xPoints, yPoints;
-            for (int i = 0; i < n; i++)
-            {
-                cin >> p.x >> p.y;
-                xPoints.push_back(p);
-                //yPoints.push_back(p);
-            }
-            sort(xPoints.begin(), xPoints.end(), xCompare);
-            //sort(yPoints.begin(), yPoints.end(), yCompare);
-            double result = minimalDistance(xPoints, 0, n);
-            if ((result >= 10000))
-                cout << "INFINITY" << endl;
-            else
-            {
-                cout << fixed << setprecision(4) << result << endl;
-            }
-        }
+        cin >> a[i];
     }
+    d[1] = a[1];
+    for (int i = 2; i <= n; i++)
+        d[i] = d[i - 1] + a[i];
+    point p;
+    vector<point> xPoints, yPoints;
+    for (int i = 1; i <= n; i++)
+    {
+        p.x = i;
+        p.y = d[i];
+        xPoints.push_back(p);
+        //yPoints.push_back(p);
+    }
+    sort(xPoints.begin(), xPoints.end(), xCompare);
+    //sort(yPoints.begin(), yPoints.end(), yCompare);
+    double result = minimalDistance(xPoints, 0, n);
+    cout << (long long)(result * result);
 }
