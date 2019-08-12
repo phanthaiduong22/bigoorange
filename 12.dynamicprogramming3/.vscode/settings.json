@@ -11,8 +11,6 @@
     "iosfwd": "cpp",
     "new": "cpp",
     "chrono": "cpp",
-    "ostream": "cpp",
-    "map": "cpp",
-    "unordered_map": "cpp"
+    "ostream": "cpp"
   },
 }
