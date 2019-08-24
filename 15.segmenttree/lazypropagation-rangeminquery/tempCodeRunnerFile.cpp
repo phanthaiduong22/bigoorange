@@ -1,0 +1,1 @@
+segtree[index]=min(segtree[2*index+1],segtree[2*index+2]);
