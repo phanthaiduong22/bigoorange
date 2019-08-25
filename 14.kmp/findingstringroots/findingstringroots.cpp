@@ -61,11 +61,19 @@ void KMPsearch(const string &t, const string &p, const vector<int>& prefix)
 }
 int main()
 {
-
-    string t = "ABABAABACDABABCABAB";
-    string p = "ABABCABAB";
-    vector<int> prefix(p.length());
-    KMPpreprocess(p, prefix);
-    KMPsearch(t,p,prefix);
-    return 0;
+    freopen("input.inp","r",stdin);
+    freopen("output.out","w",stdout);
+    string s;
+    while(getline(cin,s))
+    {
+        if(s=="*")
+            break;
+        vector<int>prefix(s.length());
+        KMPpreprocess(s,prefix);
+        for(int i=0;i<prefix.size();i++)
+        {
+            cout<<prefix[i];
+        }
+        cout<<endl;
+    }
 }
