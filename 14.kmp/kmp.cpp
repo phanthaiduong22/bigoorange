@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-void kmppreprocess(const string &p, vector<int> &prefix)
+void KMPpreprocess(const string &p, vector<int> &prefix)
 {
     prefix[0]=0;
     int m = p.length();
@@ -66,7 +66,7 @@ int main()
     string t = "ABABAABACDABABCABAB";
     string p = "ABABCABAB";
     vector<int> prefix(p.length());
-    kmppreprocess(p, prefix);
+    KMPpreprocess(p, prefix);
     KMPsearch(t,p,prefix);
     return 0;
 }

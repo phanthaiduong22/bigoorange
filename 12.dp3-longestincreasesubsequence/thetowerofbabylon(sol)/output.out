@@ -1,0 +1,10 @@
+
+
+int LIS(vector<block>& blocks) {
+    int res = 0;
+    vector<int> height(blocks.size());
+    for (int i = 0; i < blocks.size(); ++i) {
+        height[i] = blocks[i].dimensionCase 1: maximum height = 40
+Case 2: maximum height = 21
+Case 3: maximum height = 28
+Case 4: maximum height = 342
