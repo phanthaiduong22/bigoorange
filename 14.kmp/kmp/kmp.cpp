@@ -5,6 +5,7 @@
 using namespace std;
 void KMPpreprocess(const string &p, vector<int> &prefix)
 {
+     prefix[0]=0;
     int m = p.length();
     int i = 1;
     int j = 0;

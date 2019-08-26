@@ -11,6 +11,7 @@ void printLIS(const vector<int> &a, int length)
     {
         b.push_back(a[i]);
         i = path[i];
+        ;
     }
     for (int i = b.size() - 1; i >= 0; i--)
         cout << b[i] << " ";
@@ -43,11 +44,11 @@ int LIS(const vector<int> &a)
     result.push_back(0);
     for (int i = 1; i < a.size(); i++)
     {
-        if (a[i] < a[result[0]])
+        if (a[i] <= a[result[0]])
         {
             result[0] = i;
         }
-        else if (a[i] >= a[result[length - 1]])
+        else if (a[i] > a[result[length - 1]])
         {
             path[i] = result[length - 1];
             result.push_back(i);
@@ -64,7 +65,7 @@ int LIS(const vector<int> &a)
 }
 int main()
 {
-    vector<int> a = {2, 5, 12, 3};
+    vector<int> a = {2, 5, 12, 3, 10, 6, 8, 14, 4, 11, 7, 15};
     int length = LIS(a);
     cout << "length of longest increasing subsequence is: ";
     cout << length << endl;

@@ -5,6 +5,7 @@
 using namespace std;
 void kmppreprocess(const string &p, vector<int> &prefix)
 {
+    prefix[0]=0;
     int m = p.length();
     int i = 1;
     int j = 0;
@@ -49,7 +50,7 @@ void KMPsearch(const string &t, const string &p, const vector<int>& prefix)
         {
             if(j!=0)
             {
-                j=prefix[j];
+                j=prefix[j-1];
             }
             else
             {

@@ -4,10 +4,10 @@
 
 using namespace std;
 int ans;
-void KMPpreprocess(const string &p, vector<int> &prefix)
+void kmppreprocess(const vector<int> &p, vector<int> &prefix)
 {
-     prefix[0]=0;
-    int m = p.length();
+    prefix[0] = 0;
+    int m = p.size();
     int i = 1;
     int j = 0;
     while (i < m)
@@ -30,10 +30,10 @@ void KMPpreprocess(const string &p, vector<int> &prefix)
         }
     }
 }
-void KMPsearch(const string &t, const string &p, const vector<int> &prefix)
+void KMPsearch(const vector<int> &t, const vector<int> &p, const vector<int> &prefix)
 {
-    int n = t.length();
-    int m = p.length();
+    int n = t.size();
+    int m = p.size();
     int i = 0, j = 0;
     while (i < n)
     {
@@ -51,7 +51,7 @@ void KMPsearch(const string &t, const string &p, const vector<int> &prefix)
         {
             if (j != 0)
             {
-                j = prefix[j - 1];
+                j = prefix[j-1];
             }
             else
             {
@@ -62,29 +62,38 @@ void KMPsearch(const string &t, const string &p, const vector<int> &prefix)
 }
 int main()
 {
+    ios::sync_with_stdio(false);
     freopen("input.inp", "r", stdin);
     freopen("output.out", "w", stdout);
-    int T, casee = 0;
-    cin >> T;
-    cin.ignore();
-    while (T > 0)
+    int n, m, x;
+    ans = 0;
+    cin >> n >> m;
+    vector<int> a, b, a1, b1;
+    for (int i = 0; i < n; i++)
     {
-        T--;
-        casee++;
-        cout << "Case " << casee << ": ";
-        ans = 0;
-        string s, s1, s2 = "", s3 = "";
-        getline(cin, s);
-        getline(cin, s1);
-        for (int i = 0; i < s.length(); i++)
-            if (s[i] != ' ')
-                s2 += s[i];
-        for (int i = 0; i < s1.length(); i++)
-            if (s1[i] != ' ')
-                s3 += s1[i];
-        vector<int> prefix(s3.length());
-        KMPpreprocess(s3, prefix);
-        KMPsearch(s2, s3, prefix);
-        cout << ans << endl;
+        cin >> x;
+        a.push_back(x);
+        if (i >= 1)
+            a1.push_back(a[i] - a[i - 1]);
+    }
+    if (m == 1)
+    {
+        cout << n;
+        return 0;
+    }
+    else
+    {
+        for (int i = 0; i < m; i++)
+        {
+            cin >> x;
+            b.push_back(x);
+            if (i >= 1)
+                b1.push_back(b[i] - b[i - 1]);
+        }
+        vector<int> prefix(b1.size());
+        kmppreprocess(b1, prefix);
+        KMPsearch(a1, b1, prefix);
+        cout << ans;
+        return 0;
     }
 }
