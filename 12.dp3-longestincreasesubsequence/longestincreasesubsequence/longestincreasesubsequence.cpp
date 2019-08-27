@@ -11,7 +11,6 @@ void printLIS(const vector<int> &a, int length)
     {
         b.push_back(a[i]);
         i = path[i];
-        ;
     }
     for (int i = b.size() - 1; i >= 0; i--)
         cout << b[i] << " ";
