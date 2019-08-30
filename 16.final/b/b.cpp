@@ -2,14 +2,14 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-#define MAXM 6500
-#define MAXN 6500
+#define MAXM 2005
+#define MAXN 2005
 long long L[MAXM + 1][MAXN + 1];
 
 using namespace std;
-void printLCS(vector<string> s1, vector<string> s2, int m, int n)
+vector<int> printLCS(vector<int> s1, vector<int> s2, int m, int n)
 {
-    vector<string> result;
+    vector<int> result;
     int lengthLCS = L[m][n];
     result.resize(lengthLCS);
     int i = m, j = n;
@@ -29,10 +29,9 @@ void printLCS(vector<string> s1, vector<string> s2, int m, int n)
             j--;
         }
     }
-    for (int i = 0; i < result.size(); i++)
-        cout << result[i] << " ";
+    return result;
 }
-long long lcs(const string &s1, const string &s2, long long m, long long n)
+long long lcs(const vector<int> &s1, const vector<int> &s2, long long m, long long n)
 {
     for (long long i = 0; i <= m; i++)
         for (long long j = 0; j <= n; j++)
@@ -50,7 +49,19 @@ int main()
 {
     freopen("input.inp", "r", stdin);
     freopen("output.out", "w", stdout);
-    string s1, s2;
-    cin >> s1 >> s2;
-    cout << lcs(s1, s2, s1.length(), s2.length());
+    int n, m, k, x;
+    cin >> n >> m >> k;
+    vector<int> a, b;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x;
+        a.push_back(x);
+    }
+    for (int i = 0; i < m; i++)
+    {
+        cin >> x;
+        b.push_back(x);
+    }
+    int length = lcs(a, b, n, m);
+    cout<<min(length+k,n);
 }
